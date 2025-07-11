@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BJIT Product Design Competition 2025</title>
+    <!-- Chosen Palette: Slate Gray & Sky Blue -->
+    <!-- Application Structure Plan: A single-page, top-down narrative structure with a sticky navigation bar for easy access to key sections (Overview, Timeline, Rules, Judging, Awards). The flow is designed to be intuitive for potential participants, starting with a high-level overview, then moving into the operational details like the interactive timeline and rules, followed by the motivation (judging criteria and awards). This structure was chosen over a dashboard because the information is primarily for consumption and understanding a process, rather than for ongoing data monitoring. Key interactions include a tab-based timeline to simplify the 3-week schedule and an interactive doughnut chart for evaluation criteria to visually emphasize priorities. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Competition key stats (participants, duration, budget). -> Goal: Inform. -> Viz/Method: Key stat cards. -> Interaction: Static. -> Justification: Quick, scannable information. -> Library/Method: HTML/Tailwind.
+        - Report Info: 3-week competition schedule. -> Goal: Change/Process. -> Viz/Method: Interactive tabbed timeline. -> Interaction: User clicks on a week to reveal details. -> Justification: Breaks down a complex schedule into manageable chunks, preventing information overload. -> Library/Method: HTML/Tailwind/JS.
+        - Report Info: Evaluation criteria percentages. -> Goal: Compare/Proportion. -> Viz/Method: Doughnut Chart. -> Interaction: Hovering over a segment highlights it and displays its description. -> Justification: A chart provides an immediate visual understanding of weightings, which is more impactful than a table. -> Library/Method: Chart.js/JS.
+        - Report Info: Problem Areas, Awards, Team Names. -> Goal: Organize/Inform. -> Viz/Method: Grid-based cards with icons. -> Interaction: Static. -> Justification: Visually separates items for clarity and appeal. -> Library/Method: HTML/Tailwind.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .chart-container { position: relative; width: 100%; max-width: 400px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
+        .gradient-text { background: linear-gradient(to right, #0284c7, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 border-b border-slate-200">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-xl font-bold gradient-text">BJIT Innovate 2025</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#overview" class="text-slate-600 hover:text-sky-500 px-3 py-2 rounded-md text-sm font-medium">Overview</a>
+                        <a href="#timeline" class="text-slate-600 hover:text-sky-500 px-3 py-2 rounded-md text-sm font-medium">Timeline</a>
+                        <a href="#rules" class="text-slate-600 hover:text-sky-500 px-3 py-2 rounded-md text-sm font-medium">Rules</a>
+                        <a href="#judging" class="text-slate-600 hover:text-sky-500 px-3 py-2 rounded-md text-sm font-medium">Judging</a>
+                        <a href="#awards" class="text-slate-600 hover:text-sky-500 px-3 py-2 rounded-md text-sm font-medium">Awards</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <div class="bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24 text-center">
+                <p class="text-base font-semibold text-sky-600 tracking-wider">BJIT Internal Product Design Competition – 2025</p>
+                <h1 class="mt-2 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight">Innovate, Engineer, Impact</h1>
+                <p class="mt-6 max-w-3xl mx-auto text-lg text-slate-600">Join a 3-week sprint to transform innovative ideas into tangible, low-cost solutions for real-world problems. It's time to build the future.</p>
+            </div>
+        </div>
+
+        <!-- Overview Section -->
+        <section id="overview" class="py-16 sm:py-20 bg-slate-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900">Competition at a Glance</h2>
+                    <p class="mt-4 text-lg text-slate-600">This section provides the core details of the competition. Here are the key numbers that define our challenge.</p>
+                </div>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white p-8 rounded-2xl shadow-sm text-center">
+                        <div class="text-5xl font-extrabold gradient-text">40</div>
+                        <p class="mt-2 text-lg font-medium text-slate-700">Participants</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm text-center">
+                        <div class="text-5xl font-extrabold gradient-text">3</div>
+                        <p class="mt-2 text-lg font-medium text-slate-700">Intensive Weeks</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm text-center">
+                        <div class="text-5xl font-extrabold gradient-text">5-8</div>
+                        <p class="mt-2 text-lg font-medium text-slate-700">Teams</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm text-center">
+                        <div class="text-5xl font-extrabold gradient-text">Top 5</div>
+                        <p class="mt-2 text-lg font-medium text-slate-700">Advance to Finals</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section id="timeline" class="py-16 sm:py-20 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900">The 3-Week Journey</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600">The competition is a fast-paced sprint. Click on each week to see the detailed activities and required deliverables for that phase.</p>
+                </div>
+                <div class="mt-12 max-w-3xl mx-auto">
+                    <div class="mb-4 flex justify-center border-b border-slate-200">
+                        <button id="btn-week-1" class="timeline-btn text-sky-600 border-sky-600 -mb-px border-b-2 font-semibold px-6 py-3 text-lg">Week 1</button>
+                        <button id="btn-week-2" class="timeline-btn text-slate-500 border-transparent px-6 py-3 text-lg">Week 2</button>
+                        <button id="btn-week-3" class="timeline-btn text-slate-500 border-transparent px-6 py-3 text-lg">Week 3</button>
+                    </div>
+                    <div id="content-week-1" class="timeline-content">
+                        <h3 class="text-2xl font-bold text-center mb-4 text-slate-800">Ideation & Foundation</h3>
+                        <ul class="space-y-4">
+                            <li class="bg-slate-50 p-4 rounded-lg"><strong class="text-slate-900">Activity:</strong> Kickoff & Launch Event, Team Formation.</li>
+                            <li class="bg-slate-50 p-4 rounded-lg"><strong class="text-slate-900">Activity:</strong> Problem Identification & "Mentor Office Hours".</li>
+                            <li class="bg-slate-50 p-4 rounded-lg"><strong class="text-slate-900">Knockout Phase:</strong> 5-minute concept pitch to judges.</li>
+                            <li class="bg-sky-50 p-4 rounded-lg"><strong class="text-sky-900">Deliverable:</strong> 2-page concept brief and presentation slide.</li>
+                        </ul>
+                    </div>
+                    <div id="content-week-2" class="timeline-content hidden">
+                        <h3 class="text-2xl font-bold text-center mb-4 text-slate-800">Design & Development</h3>
+                        <ul class="space-y-4">
+                            <li class="bg-slate-50 p-4 rounded-lg"><strong class="text-slate-900">Activity:</strong> Detailed CAD Design in SolidWorks & Simulation (FEA/CFD).</li>
+                            <li class="bg-slate-50 p-4 rounded-lg"><strong class="text-slate-900">Activity:</strong> Prototyping (3D Printing & Embedded Systems).</li>
+                            <li class="bg-slate-50 p-4 rounded-lg"><strong class="text-slate-900">Activity:</strong> Optional Workshop on Embedded Systems.</li>
+                             <li class="bg-sky-50 p-4 rounded-lg"><strong class="text-sky-900">Deliverable:</strong> Midway progress report, initial CAD models, and simulation results.</li>
+                        </ul>
+                    </div>
+                    <div id="content-week-3" class="timeline-content hidden">
+                        <h3 class="text-2xl font-bold text-center mb-4 text-slate-800">Refinement & Finals</h3>
+                        <ul class="space-y-4">
+                             <li class="bg-slate-50 p-4 rounded-lg"><strong class="text-slate-900">Activity:</strong> Prototype testing, refinement, and final adjustments.</li>
+                             <li class="bg-slate-50 p-4 rounded-lg"><strong class="text-slate-900">Activity:</strong> Final presentation and documentation preparation.</li>
+                             <li class="bg-slate-50 p-4 rounded-lg"><strong class="text-slate-900">Grand Finale:</strong> Live demonstration to judges and stakeholders.</li>
+                             <li class="bg-sky-50 p-4 rounded-lg"><strong class="text-sky-900">Deliverable:</strong> Fully functional prototype, final design documents, and presentation.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rules Section -->
+        <section id="rules" class="py-16 sm:py-20 bg-slate-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl font-bold tracking-tight text-slate-900">Problem Areas & Constraints</h2>
+                        <p class="mt-4 text-lg text-slate-600">To guide your innovation, your team must select a challenge from one of the focus areas below and adhere to the specified design constraints. This ensures a level playing field and focuses creativity on practical, scalable solutions.</p>
+                        <div class="mt-8 space-y-4">
+                            <div class="flex items-start gap-4">
+                               <div class="flex-shrink-0 w-8 h-8 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center font-bold">1</div>
+                                <div><h4 class="font-semibold text-lg">Budget:</h4><p class="text-slate-600">Strict adherence to the 15,000 BDT budget.</p></div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                               <div class="flex-shrink-0 w-8 h-8 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center font-bold">2</div>
+                                <div><h4 class="font-semibold text-lg">Primary Material:</h4><p class="text-slate-600">The core structure must be 3D printed.</p></div>
+                            </div>
+                             <div class="flex items-start gap-4">
+                               <div class="flex-shrink-0 w-8 h-8 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center font-bold">3</div>
+                                <div><h4 class="font-semibold text-lg">Scalability:</h4><p class="text-slate-600">The design must be practical and manufacturable.</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm"><h4 class="font-bold text-slate-800">Industrial Efficiency</h4></div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm"><h4 class="font-bold text-slate-800">Health & Safety</h4></div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm"><h4 class="font-bold text-slate-800">Sustainability</h4></div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm"><h4 class="font-bold text-slate-800">Smart Devices</h4></div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm col-span-2"><h4 class="font-bold text-slate-800">Everyday Life Enhancements</h4></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Judging Section -->
+        <section id="judging" class="py-16 sm:py-20 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900">How You'll Be Judged</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-600">Your final score is based on four core pillars. Hover over a section of the chart to see what the judges are looking for in each category.</p>
+                </div>
+                <div class="mt-12 lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+                    <div class="chart-container">
+                        <canvas id="judgingChart"></canvas>
+                    </div>
+                    <div class="mt-8 lg:mt-0">
+                        <div id="judging-details" class="bg-slate-50 p-8 rounded-2xl min-h-[150px] flex items-center justify-center">
+                            <p class="text-lg text-slate-700 text-center">Hover over the chart for details on each criterion.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Awards Section -->
+        <section id="awards" class="py-16 sm:py-20 bg-slate-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900">Prizes & Recognition</h2>
+                    <p class="mt-4 text-lg text-slate-600">Winning teams receive not just prizes, but recognition for their hard work and ingenuity.</p>
+                </div>
+                <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-amber-400">
+                        <h3 class="font-bold text-lg">Championship Award</h3>
+                        <p class="text-slate-600 mt-1">For the best overall design.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-sky-400">
+                        <h3 class="font-bold text-lg">The Da Vinci Award</h3>
+                        <p class="text-slate-600 mt-1">For the most innovative solution.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-rose-400">
+                        <h3 class="font-bold text-lg">The Ironclad Award</h3>
+                        <p class="text-slate-600 mt-1">For the best prototype performance.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-teal-400">
+                        <h3 class="font-bold text-lg">The Synergy Award</h3>
+                        <p class="text-slate-600 mt-1">For the best teamwork.</p>
+                    </div>
+                </div>
+                 <div class="mt-8 text-center bg-white p-8 rounded-2xl shadow-sm">
+                    <h3 class="text-xl font-bold text-slate-800">Winning Package Includes:</h3>
+                    <p class="mt-4 text-slate-600">Custom 3D Printed Trophies ● Cash Prizes & Vouchers ● Professional Engineering Toolkits ● Company-Sponsored Dinner ● Internal & External Recognition</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-800 text-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <p>&copy; 2025 BJIT. Let the innovation begin.</p>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // Timeline Interaction
+    const timelineButtons = {
+        'btn-week-1': 'content-week-1',
+        'btn-week-2': 'content-week-2',
+        'btn-week-3': 'content-week-3'
+    };
+
+    const allBtns = document.querySelectorAll('.timeline-btn');
+    const allContents = document.querySelectorAll('.timeline-content');
+
+    Object.keys(timelineButtons).forEach(btnId => {
+        const btn = document.getElementById(btnId);
+        btn.addEventListener('click', () => {
+            // Hide all content and reset button styles
+            allContents.forEach(content => content.classList.add('hidden'));
+            allBtns.forEach(b => {
+                b.classList.remove('text-sky-600', 'border-sky-600');
+                b.classList.add('text-slate-500', 'border-transparent');
+            });
+
+            // Show selected content and style button
+            const contentId = timelineButtons[btnId];
+            document.getElementById(contentId).classList.remove('hidden');
+            btn.classList.add('text-sky-600', 'border-sky-600');
+            btn.classList.remove('text-slate-500', 'border-transparent');
+        });
+    });
+
+    // Chart.js for Judging Criteria
+    const ctx = document.getElementById('judgingChart').getContext('2d');
+    const judgingDetails = document.getElementById('judging-details');
+    
+    const chartData = {
+        labels: [
+            'Prototype Performance',
+            'Innovation & Creativity',
+            'Technical Excellence',
+            'Presentation & Docs'
+        ],
+        datasets: [{
+            data: [30, 25, 25, 20],
+            backgroundColor: [
+                '#38bdf8', // sky-400
+                '#0ea5e9', // sky-500
+                '#0284c7', // sky-600
+                '#0369a1'  // sky-700
+            ],
+            hoverBackgroundColor: [
+                '#7dd3fc', // sky-300
+                '#38bdf8', // sky-400
+                '#0ea5e9', // sky-500
+                '#0284c7'  // sky-600
+            ],
+            borderColor: '#fff',
+            borderWidth: 4,
+            hoverOffset: 15
+        }]
+    };
+
+    const descriptions = [
+        '<h4 class="font-bold text-xl mb-2 text-slate-800">Prototype Performance (30%)</h4><p class="text-slate-600">How well the prototype functions and solves the intended problem during the live demo.</p>',
+        '<h4 class="font-bold text-xl mb-2 text-slate-800">Innovation & Creativity (25%)</h4><p class="text-slate-600">Uniqueness and originality of the solution. How novel is the idea?</p>',
+        '<h4 class="font-bold text-xl mb-2 text-slate-800">Technical Excellence (25%)</h4><p class="text-slate-600">Quality of CAD work, accuracy of simulations, and robustness of the design.</p>',
+        '<h4 class="font-bold text-xl mb-2 text-slate-800">Presentation & Documentation (20%)</h4><p class="text-slate-600">Clarity, professionalism, and storytelling. How well did the team communicate their journey?</p>'
+    ];
+
+    const judgingChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: chartData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '60%',
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 20,
+                        font: { size: 14 }
+                    }
+                },
+                tooltip: {
+                    enabled: false
+                }
+            },
+            onHover: (event, chartElement) => {
+                const target = event.native.target;
+                if (chartElement.length) {
+                    target.style.cursor = 'pointer';
+                    const index = chartElement[0].index;
+                    judgingDetails.innerHTML = descriptions[index];
+                } else {
+                    target.style.cursor = 'default';
+                    judgingDetails.innerHTML = '<p class="text-lg text-slate-700 text-center">Hover over the chart for details on each criterion.</p>';
+                }
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>
